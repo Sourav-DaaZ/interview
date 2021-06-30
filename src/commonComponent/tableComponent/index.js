@@ -6,7 +6,7 @@ function TableComponent(props) {
     <DataGrid
       loading={props.loading}
       onCellClick={(row, column, evt) => {
-        props.onCellCleck(row);
+        props.onCellCleck(row,column.target.classList[0]);
       }}
       rows={props.rows}
       columns={props.columns}

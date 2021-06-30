@@ -3,7 +3,7 @@ import TableComponent from "../../commonComponent/tableComponent";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import { useHistory } from "react-router-dom";
-import { mystyle } from "./style";
+import { mystyle, imgDivStyle } from "./style";
 
 import OutsideAuthApi from "../../services/outsideAuth";
 
@@ -69,14 +69,16 @@ function HomePage() {
     setData(varData);
   };
 
-  const onCellCleck = (val) => {
-    history.push({
-      pathname: "/about", //for single rout, i'm doing hardcode
-      state: {
-        name: val.row.name,
-        data: val.row.allBids,
-      },
-    });
+  const onCellCleck = (val,col) => {
+    if (col !== "MuiToggleButton-label") {
+      history.push({
+        pathname: "/about", //for single rout, i'm doing hardcode
+        state: {
+          name: val.row.name,
+          data: val.row.allBids,
+        },
+      });
+    }
   };
 
   const columns = [
@@ -87,8 +89,9 @@ function HomePage() {
       width: 300,
       renderCell: (params) => {
         return (
-          <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-            {params.row.img ? <img src={params.row.img} alt="BigCo Inc. logo" style={{ height: "40px", width: "40px" }} /> : null} {params.row.name}
+          <div style={imgDivStyle}>
+            {params.row.img ? <img src={params.row.img} alt="BigCo Inc. logo" style={{ height: "40px", width: "40px" }} /> : null}{" "}
+            <p style={{ marginLeft: "15px" }}>{params.row.name}</p>
           </div>
         );
       },
@@ -137,8 +140,8 @@ function HomePage() {
 
   return (
     <div style={mystyle}>
-        <h3>Customer List</h3>
-      <TableComponent rows={data} columns={columns} loading={false} onSortModelChange={onSortModelChange} onCellCleck={onCellCleck} />
+      <h3>Customer List</h3>
+      <TableComponent rows={data} columns={columns} loading={data.length <= 0} onSortModelChange={onSortModelChange} onCellCleck={onCellCleck} />
     </div>
   );
 }

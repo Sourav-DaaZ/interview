@@ -32,8 +32,18 @@ function DetailsPage(props) {
 
   return (
     <div style={mystyle}>
-        <h3>{props.location.state.name}</h3>
-      <TableComponent rows={data} columns={columns} loading={false} />
+      <h3>{props.location.state.name}</h3>
+      <TableComponent
+        rows={data}
+        columns={columns}
+        loading={data.length <= 0}
+        onSortModelChange={() => {
+          console.log("short change");
+        }}
+        onCellCleck={() => {
+          console.log("short change");
+        }}
+      />
     </div>
   );
 }
