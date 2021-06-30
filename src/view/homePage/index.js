@@ -70,7 +70,7 @@ function HomePage() {
   };
 
   const onCellCleck = (val,col) => {
-    if ((col !== "MuiToggleButton-label") && col !== "") {
+    if ((col !== "MuiToggleButton-label")) {
       history.push({
         pathname: "/about", //for single rout, i'm doing hardcode
         state: {
