@@ -52,6 +52,20 @@ function App() {
     setData(varData);
   };
 
+  function compare(a, b, shot) {
+    if (shot === "asc") {
+      return (a.toogle ? a.maxBid : a.minBid) - (b.toogle ? b.maxBid : b.minBid);
+    } else {
+      return (b.toogle ? b.maxBid : b.minBid) - (a.toogle ? a.maxBid : a.minBid);
+    }
+  }
+
+  const onSortModelChange = (params) => {
+    let varData = data;
+    varData = varData.slice().sort((a, b) => compare(a, b, params.sortModel.length ? params.sortModel[0].sort : "asc"));
+    setData(varData);
+  };
+
   const columns = [
     {
       field: "name",
@@ -94,14 +108,21 @@ function App() {
                 {params.row.toogle ? "max value" : "min value"}
               </ToggleButton>
             </ToggleButtonGroup>
-            Rs.{params.row.toogle ? params.row.maxBid : params.row.minBid}
+            Rs.
+            {params.row.toogle
+              ? params.row.maxBid == "-Infinity"
+                ? 0
+                : params.row.maxBid
+              : params.row.minBid === "Infinity"
+              ? 0
+              : params.row.minBid}
           </div>
         );
       },
     },
   ];
 
-  return <TableComponent rows={data} columns={columns} loading={false} />;
+  return <TableComponent rows={data} columns={columns} loading={false} onSortModelChange={onSortModelChange} />;
 }
 
 export default App;

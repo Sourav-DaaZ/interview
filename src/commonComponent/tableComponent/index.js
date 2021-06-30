@@ -12,6 +12,8 @@ function TableComponent(props) {
         rows={props.rows}
         columns={props.columns}
         pageSize={5}
+        sortingOrder={['desc', 'asc']}
+        onSortModelChange={props.onSortModelChange}
       />
     </div>
   );
