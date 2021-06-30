@@ -1,14 +1,15 @@
 import axiosObj from "./axiosConfig";
-import { API } from "../constants/apiConstant";
+import {API} from "../constant/apiConstant";
 
 const OutsideAuthApi = () => {
   const defaultHeaders = {
     "Content-Type": "application/json",
   };
+  console.log(API)
   return {
-    loginApi() {
+    fetchData() {
       return axiosObj({
-        url: API.noAuthUrls.loginUser,
+        url: API.noAuthUrls.endpoint,
         method: "GET",
         headers: { ...defaultHeaders },
       });

@@ -4,6 +4,6 @@ export const API = {
       dev: 'https://intense-tor-76305.herokuapp.com/',
     },
     noAuthUrls: {
-        loginUser: '/merchants',
+        endpoint: '/merchants',
     }
   };

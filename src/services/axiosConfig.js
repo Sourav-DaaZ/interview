@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API} from '../constants/apiConstant';
+import {API} from '../constant/apiConstant';
 
 const axiosObj = (info) => {
   const {url, method, headers, data} = info;
