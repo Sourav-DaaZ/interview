@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import TableComponent from "./commonComponent/tableComponent";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+
 import OutsideAuthApi from "./services/outsideAuth";
 
 function App() {
   const [data, setData] = useState([]);
-  const [toogle, setToogle] = useState(0);
 
   useEffect(() => {
     OutsideAuthApi()
@@ -21,22 +23,34 @@ function App() {
               premum: x.hasPremium,
               phone: x.phone,
               allBids: x.bids,
-              maxBid: Math.max.apply(Math, x.bids.map(function(o) { return o.amount; })),
-              minBid: Math.min.apply(Math, x.bids.map(function(o) { return o.amount; }))
+              toogle: true,
+              maxBid: Math.max.apply(
+                Math,
+                x.bids.map(function (o) {
+                  return o.amount;
+                })
+              ),
+              minBid: Math.min.apply(
+                Math,
+                x.bids.map(function (o) {
+                  return o.amount;
+                })
+              ),
             })
           );
         }
-        console.log(dataValue)
         setData(dataValue);
       })
       .catch((err) => {
         console.log(err);
       });
-  },[]);
+  }, []);
 
-  // componentDidUpdate() {
-
-  // }
+  const handleFormat = (id) => {
+    let varData = data;
+    varData[id].toogle = !varData[id].toogle;
+    setData(varData);
+  };
 
   const columns = [
     {
@@ -70,12 +84,17 @@ function App() {
       field: "bid",
       headerName: "Max/Min Bid",
       sortable: true,
-      description: 'please cleack for show max and min bid',
+      description: "please click for short",
       width: 250,
       renderCell: (params) => {
         return (
           <div className="d-flex justify-content-between align-items-center" style={{ cursor: "pointer" }}>
-            {toogle?params.row.maxBid:params.row.minBid}
+            <ToggleButtonGroup onChange={() => handleFormat(params.row.id)} aria-label="text formatting">
+              <ToggleButton value="bold" aria-label="bold">
+                {params.row.toogle ? "max value" : "min value"}
+              </ToggleButton>
+            </ToggleButtonGroup>
+            Rs.{params.row.toogle ? params.row.maxBid : params.row.minBid}
           </div>
         );
       },
