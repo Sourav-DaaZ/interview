@@ -51,7 +51,7 @@ function HomePage() {
 
   const handleFormat = (id) => {
     let varData = data;
-    varData[id].toogle = !varData[id].toogle;
+    varData.map((x) => (x.id === id) ? (x.toogle = !x.toogle) : null);
     setData(varData);
   };
 
@@ -69,8 +69,9 @@ function HomePage() {
     setData(varData);
   };
 
-  const onCellCleck = (val,col) => {
-    if ((col !== "MuiToggleButton-label")) {
+  const onCellCleck = (val, col) => {
+    console.log(col);
+    if (!(col.includes("MuiToggleButton-label") || col.includes("MuiButtonBase-root") || col.includes("MuiTouchRipple-root"))) {
       history.push({
         pathname: "/about", //for single rout, i'm doing hardcode
         state: {
