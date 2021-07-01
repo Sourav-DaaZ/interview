@@ -70,7 +70,6 @@ function HomePage() {
   };
 
   const onCellCleck = (val, col) => {
-    console.log(col);
     if (!(col.includes("MuiToggleButton-label") || col.includes("MuiButtonBase-root") || col.includes("MuiTouchRipple-root"))) {
       history.push({
         pathname: "/about", //for single rout, i'm doing hardcode

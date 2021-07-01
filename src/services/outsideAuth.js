@@ -5,7 +5,6 @@ const OutsideAuthApi = () => {
   const defaultHeaders = {
     "Content-Type": "application/json",
   };
-  console.log(API)
   return {
     fetchData() {
       return axiosObj({
